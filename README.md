@@ -5,13 +5,13 @@ Interactive CLI to scaffold projects from your boilerplate GitHub repo.
 ## Install
 
 ```bash
-go install github.com/yourusername/boilerplate-cli@latest
+go install github.com/vitingr/boilerplate-cli@latest
 ```
 
 Or build locally:
 
 ```bash
-git clone https://github.com/yourusername/boilerplate-cli
+git clone https://github.com/vitingr/boilerplate-cli
 cd boilerplate-cli
 go build -o bplt .
 sudo mv bplt /usr/local/bin/
