@@ -6,12 +6,10 @@ import (
 	"os/exec"
 )
 
-// Init runs `git init` in dir.
 func Init(dir string) error {
 	return run(dir, "git", "init")
 }
 
-// InitialCommit stages everything and creates the first commit.
 func InitialCommit(dir string) error {
 	if err := run(dir, "git", "add", "."); err != nil {
 		return err

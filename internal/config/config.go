@@ -1,7 +1,5 @@
 package config
 
-// Boilerplate catalog — mirrors your GitHub repo structure.
-// Key: language → framework → []templates
 var Catalog = map[string]map[string][]string{
 	"node": {
 		"nest": {
@@ -57,11 +55,8 @@ var Catalog = map[string]map[string][]string{
 	},
 }
 
-// RepoBaseURL is the raw GitHub URL for your boilerplates repo.
-// Boilerplate paths: /<language>/<framework>/<template>/
 const RepoBaseURL = "https://github.com/yourusername/boilerplates"
 
-// ScaffoldConfig holds the answers collected from the interactive prompt.
 type ScaffoldConfig struct {
 	ProjectName string
 	Language    string

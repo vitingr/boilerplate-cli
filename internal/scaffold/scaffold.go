@@ -20,7 +20,6 @@ var (
 )
 
 func Run(cfg *config.ScaffoldConfig) error {
-	// ── 1. Clone (sparse) the boilerplate directory ───────────────
 	info("⏳  Fetching boilerplate %s/%s/%s …\n", cfg.Language, cfg.Framework, cfg.Template)
 
 	if err := cloneBoilerplate(cfg); err != nil {
@@ -29,12 +28,10 @@ func Run(cfg *config.ScaffoldConfig) error {
 	}
 	success("✔  Boilerplate copied to %s\n", cfg.OutputDir)
 
-	// ── 2. Rename project references ─────────────────────────────
 	if err := renameProject(cfg.OutputDir, cfg.ProjectName); err != nil {
 		warn("⚠  Could not rename project references: %v\n", err)
 	}
 
-	// ── 3. Git init ───────────────────────────────────────────────
 	if cfg.InitGit {
 		info("⏳  Initialising git …\n")
 		if err := git.Init(cfg.OutputDir); err != nil {
@@ -45,7 +42,6 @@ func Run(cfg *config.ScaffoldConfig) error {
 		}
 	}
 
-	// ── 4. Install dependencies ───────────────────────────────────
 	if cfg.InstallDeps {
 		if err := installDeps(cfg); err != nil {
 			warn("⚠  Dependency installation failed: %v\n", err)
@@ -54,7 +50,6 @@ func Run(cfg *config.ScaffoldConfig) error {
 		}
 	}
 
-	// ── 5. Done ───────────────────────────────────────────────────
 	fmt.Println()
 	success("🚀  Project %q ready at %s\n\n", cfg.ProjectName, cfg.OutputDir)
 	info("  cd %s\n", cfg.OutputDir)
@@ -62,10 +57,7 @@ func Run(cfg *config.ScaffoldConfig) error {
 	return nil
 }
 
-// cloneBoilerplate uses `git clone --filter=blob:none --sparse` (partial clone)
-// to download only the sub-directory that corresponds to the selected boilerplate.
 func cloneBoilerplate(cfg *config.ScaffoldConfig) error {
-	// Temp dir for sparse clone
 	tmp, err := os.MkdirTemp("", "bplt-*")
 	if err != nil {
 		return err
@@ -89,7 +81,6 @@ func cloneBoilerplate(cfg *config.ScaffoldConfig) error {
 		}
 	}
 
-	// Move the sub-directory to the desired output path
 	src := filepath.Join(tmp, subdir)
 	if err := os.MkdirAll(filepath.Dir(cfg.OutputDir), 0o755); err != nil {
 		return err
@@ -97,9 +88,6 @@ func cloneBoilerplate(cfg *config.ScaffoldConfig) error {
 	return os.Rename(src, cfg.OutputDir)
 }
 
-// renameProject does a naive find-and-replace of the placeholder name
-// "boilerplate" (used in package.json, go.mod, pyproject.toml, etc.)
-// with the actual project name.
 func renameProject(dir, name string) error {
 	return filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
 		if err != nil || d.IsDir() {

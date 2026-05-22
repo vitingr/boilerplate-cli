@@ -3,21 +3,13 @@ package cmd
 import (
 	"os"
 
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "bplt",
 	Short: "Boilerplate CLI - scaffold projects interactively",
-	Long: color.CyanString(`
-		██████╗ ██████╗ ██╗  ████████╗
-		██╔══██╗██╔══██╗██║  ╚══██╔══╝
-		██████╔╝██████╔╝██║     ██║   
-		██╔══██╗██╔═══╝ ██║     ██║   
-		██████╔╝██║     ███████╗██║   
-		╚═════╝ ╚═╝     ╚══════╝╚═╝   
-	`) + "\nInteractive project scaffolding from your boilerplate repo.",
+	Long: "\nInteractive project scaffolding from your boilerplate repo.",
 }
 
 func Execute() {
